@@ -1,90 +1,75 @@
-import 'package:app_coleta_seletiva/app/controller/object_controller/pagina_controller.dart';
-import 'package:app_coleta_seletiva/app/models/user_models/usuario_modelo.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:mobx/mobx.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import '../repository/auth/auth_repository.dart';
+import '../repository/user/user_repository.dart';
+import '../../shared/app_routes.dart';
+import '../models/error_model.dart';
+import '../models/user_model.dart';
 
-class UsuarioController {
+part 'user_controller.g.dart';
 
+class UserController = UserControllerBase with _$UserController;
 
-
-  cadastrarUsuario(Usuario usuario) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-    FirebaseAuth auth = FirebaseAuth.instance;
-    FirebaseFirestore db = FirebaseFirestore.instance;
-
-    auth.createUserWithEmailAndPassword(
-      email: usuario.email,
-      password: usuario.senha
-    ).then((firebaseUser) {
-      db.collection("usuarios")
-          .doc(firebaseUser.user!.uid)
-          .set(usuario.toMap());
-
-    }).catchError((error){
-      return "Erro ao cadastrar usuário! Verifique os campos e tente novamente.";
-    });
-  }
-
-
-
-
-  verificarUsuarioLogado(context)async{
-
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    User? usuarioLogado = await auth.currentUser!;
-
-    if (usuarioLogado != null){
-      return usuarioLogado.uid.toString();
-    } else {
-      logOut(context);
-      return "Você não está logado, por favor faça o login antes de realizar esta ação!";
+abstract class UserControllerBase with Store {
+  //flutter packages pub run build_runner watch --delete-conflicting-outputs
+  Future<void> createUser(UserModel user) async {
+    try {
+      final repository = UserRepository();
+      repository.createUser(user);
+    } on ErrorModel catch (error) {
+      debugPrint(error.message);
     }
   }
 
-
-
-
-  editarUsuario(Usuario usuario) async {
-
-    FirebaseAuth auth = FirebaseAuth.instance;
-    FirebaseFirestore db = FirebaseFirestore.instance;
-    db.collection("usuarios")
-    .doc(auth.currentUser!.uid)
-    .update(usuario.toMap());
+  Future<void> editUser(UserModel user) async {
+    try {
+      final repository = UserRepository();
+      repository.editUser(user);
+    } on ErrorModel catch (error) {
+      debugPrint(error.message);
+    }
   }
 
+  void checkUserIsLogged() {
+    final userRepository = UserRepository();
+    final authRepository = AuthRepository();
 
-
-
-  logIn(context, email, senha) {
-    PaginaController pagecont = PaginaController();
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    auth.signInWithEmailAndPassword(
-      email: email,
-      password: senha,
-    ).then((firebaseUser){
-
-      pagecont.redirecionarPaginaPorTipoUser(context, firebaseUser.user!.uid);
-
-    }).catchError((error){
-      return "Erro de autenticação! Verifique seus dados e tente novamente";
-    });
+    final isLogged = userRepository.userIsLogged();
+    if (!isLogged) {
+      authRepository.signOut();
+      debugPrint(
+        "Você não está logado, por favor faça o login antes de realizar esta ação!",
+      );
+      Modular.to.pushNamed(Modular.initialRoute);
+    }
   }
 
+  Future<void> getUserTypeById() async {
+    try {
+      final repository = UserRepository();
+      final type = await repository.getUserType();
+      openPageByUserType(type);
+    } on ErrorModel catch (error) {
+      debugPrint(error.message);
+    }
+  }
 
-
-  logOut(context) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    await auth.signOut();
-    Navigator.pushReplacementNamed(context, "/");
+  void openPageByUserType(String type) {
+    switch (type) {
+      case "":
+        Modular.to.pushNamed(Modular.initialRoute);
+        break;
+      case "morador":
+        Modular.to.pushNamed(Routes.painelMorador);
+        break;
+      case "sindico":
+        Modular.to.pushNamed(Routes.painelSindico);
+        break;
+      case "coletor":
+        Modular.to.pushNamed(Routes.painelColetor);
+        break;
+    }
   }
 }
 
