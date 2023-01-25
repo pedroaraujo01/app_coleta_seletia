@@ -1,3 +1,5 @@
+import 'package:app_coleta_seletiva/app/module/models/carrinho_model.dart';
+import 'package:app_coleta_seletiva/app/module/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -23,37 +25,49 @@ abstract class SindicoControllerBase with Store {
     this._userRepository,
   );
 
-  void solicitarVisitaColetor() {}
-
-  void liberarPontuacao() {}
-
-  Future<void> cadastrarPredio(PredioModel value) async {
+  @override
+  Future<void> solicitarVisitaColetor(PredioModel predio, ApartamentoModel apartamento, CarrinhoModel carrinho) async {
     try {
-      await _predioRepository.create(value);
+      await _userRepository.solicitarVisitaColetor(predio, apartamento, carrinho);
     } on ErrorModel catch (error) {
       debugPrint(error.message);
     }
   }
 
-  Future<ApartamentoModel> buscarApartamento() async {
+  void liberarPontuacao(ApartamentoModel apartamento, UserModel user) {
+
+  }
+
+  @override
+  Future<void> cadastrarPredio(PredioModel value, UserModel user) async {
     try {
-      final userId = await _userRepository.getUserId();
-      return await _apartamentoRepository.get(userId);
+      await _predioRepository.create(value, user);
     } on ErrorModel catch (error) {
       debugPrint(error.message);
-      rethrow;
     }
   }
 
+  // Future<ApartamentoModel> buscarApartamento() async {
+  //   try {
+  //     final userId = await _userRepository.getUserId();
+  //     return await _apartamentoRepository.get(userId);
+  //   } on ErrorModel catch (error) {
+  //     debugPrint(error.message);
+  //     rethrow;
+  //   }
+  // }
+
+  @override
   Future<void> liberarCadastroApartamento(ApartamentoModel value) async {
     try {
-      await _apartamentoRepository.update(value);
+      await _apartamentoRepository.liberarCadastroApartamento(value);
     } on ErrorModel catch (error) {
       debugPrint(error.message);
       rethrow;
     }
   }
 
+ @override
   Future<void> removerCadastroApartamento(ApartamentoModel value) async {
     try {
       await _apartamentoRepository.delete(value);
@@ -63,6 +77,7 @@ abstract class SindicoControllerBase with Store {
     }
   }
 
+  @override
   Future<void> removerPredio(PredioModel value) async {
     try {
       await _predioRepository.delete(value);

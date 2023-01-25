@@ -1,45 +1,51 @@
 class ApartamentoModel {
   final int numApt;
-  final String idUser;
+  final String nomeMorador;
+  final String nomePredio;
   final String idPredio;
-  final String idApartamento;
+  final String cpfMorador;
 
   const ApartamentoModel({
     required this.numApt,
-    required this.idUser,
+    required this.nomeMorador,
+    required this.nomePredio,
     required this.idPredio,
-    required this.idApartamento,
+    required this.cpfMorador,
   });
 
   factory ApartamentoModel.fromMap(Map<String, dynamic> map) {
     return ApartamentoModel(
       numApt: map["numApt"],
-      idUser: map["idUser"],
+      nomeMorador: map["nomeMorador"],
+      nomePredio: map["nomePredio"],
       idPredio: map["idPredio"],
-      idApartamento: map["idApartamento"],
+      cpfMorador: map["cpfMorador"],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       "numApt": numApt,
-      "idUser": idUser,
+      "idUser": nomeMorador,
+      "nomePredio": nomePredio,
       "idPredio": idPredio,
-      "idApartamento": idApartamento
+      "cpfMorador" : cpfMorador,
     };
   }
 
   ApartamentoModel copyWith({
     int? numApt,
-    String? idUser,
+    String? nomeMorador,
+    String? nomePredio,
     String? idPredio,
-    String? idApartamento,
+    String? cpfMorador,
   }) {
     return ApartamentoModel(
       numApt: numApt ?? this.numApt,
-      idUser: idUser ?? this.idUser,
+      nomeMorador: nomeMorador ?? this.nomeMorador,
+      nomePredio: nomePredio ?? this.nomePredio,
       idPredio: idPredio ?? this.idPredio,
-      idApartamento: idApartamento ?? this.idApartamento,
+      cpfMorador: cpfMorador ?? this.cpfMorador,
     );
   }
 }

@@ -1,3 +1,7 @@
+import 'package:app_coleta_seletiva/app/module/models/requisicao_model.dart';
+import 'package:app_coleta_seletiva/app/module/models/residuo_model.dart';
+import 'package:app_coleta_seletiva/app/module/models/user_model.dart';
+import 'package:app_coleta_seletiva/app/module/repository/user/i_user_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
@@ -14,15 +18,29 @@ class MoradorController = MoradorControllerBase with _$MoradorController;
 abstract class MoradorControllerBase with Store {
   final IApartamentoRepository _apartamentoRepository;
   final IPredioRepository _predioRepository;
+  final IUserRepository _userRepository;
 
   const MoradorControllerBase(
     this._apartamentoRepository,
     this._predioRepository,
+    this._userRepository
   );
 
-  void solicitarColetaMorador() {}
+  Future<void> solicitarColeta(RequisicaoModel requisicao) async {
+    try {
+      return await _userRepository.solicitarColeta(requisicao);
+    } on ErrorModel catch (_) {
+      rethrow;
+    }
+  }
 
-  void resgatarCupom() {}
+   resgatarCupom(int pontuacao, UserModel user) async {
+    try {
+      return await _userRepository.resgatarCupom(pontuacao, user);
+    } on ErrorModel catch (_) {
+      rethrow;
+    }
+  }
 
   Future<PredioModel> buscarPredio(int cep, String name, String address) async {
     try {

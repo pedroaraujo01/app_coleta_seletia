@@ -14,7 +14,7 @@ import 'repository/predio/i_predio_repository.dart';
 import 'repository/predio/predio_repository.dart';
 import 'repository/user/i_user_repository.dart';
 import 'repository/user/user_repository.dart';
-import 'views/home_view.dart';
+import 'views/login_view.dart';
 import 'views/painel_coletor_view.dart';
 import 'views/painel_morador_view.dart';
 import 'views/not_found_view.dart';
@@ -31,7 +31,7 @@ class ColetaSeletivaModule extends Module {
 
     // Controllers
     Bind.lazySingleton((i) => ColetorController()),
-    Bind.lazySingleton((i) => MoradorController(i.get(), i.get())),
+    Bind.lazySingleton((i) => MoradorController(i.get(), i.get(), i.get())),
     Bind.lazySingleton((i) => SindicoController(i.get(), i.get(), i.get())),
     Bind.lazySingleton((i) => AuthController()),
     Bind.lazySingleton((i) => UserController()),
@@ -46,7 +46,7 @@ class ColetaSeletivaModule extends Module {
     ChildRoute(
       Modular.initialRoute,
       transition: TransitionType.noTransition,
-      child: (_, args) => const HomeView(),
+      child: (_, args) => const LoginView(),
     ),
     ChildRoute(
       Paths.painelMorador,

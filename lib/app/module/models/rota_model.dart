@@ -16,4 +16,28 @@ class RotaModel {
     required this.latitude,
     required this.longitude,
   });
+
+  factory RotaModel.fromMap(Map<String, dynamic> map){
+    return RotaModel(
+        rua: map["rua"],
+        numero: map["numero"],
+        cidade: map["cidade"],
+        bairro: map["bairro"],
+        cep: map["cep"],
+        latitude: map["latitude"],
+        longitude: map["longitude"])
+    ;
+  }
+
+  Map<String, dynamic> toMap(){
+    return{
+      "rua" : rua,
+      "numero" : numero,
+      "cidade" : cidade,
+      "bairro" : bairro,
+      "cep" : cep,
+      "latitude" : latitude,
+      "longitude" : longitude,
+    };
+  }
 }

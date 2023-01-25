@@ -10,38 +10,81 @@ class ApartamentoRepository implements IApartamentoRepository {
   Future<void> create(ApartamentoModel value) async {
     try {
       final db = FirebaseFirestore.instance;
-      await db.collection("requisicoesApartamentos").add(value.toMap());
+      await db.collection("requisicoesApartamentos")
+      .doc(value.idPredio)
+      .collection('apartamentos')
+      .doc(value.numApt.toString())
+          .set(value.toMap());
     } catch (error) {
       debugPrint('ERROR (createApartamento) => $error');
-      throw const ErrorModel(message: 'Erro ao criar um Apartamento');
+      throw const ErrorModel(message: 'Erro ao cadastrar um Apartamento');
     }
   }
 
-  @override
-  Future<ApartamentoModel> get(String userId) async {
-    try {
-      final db = FirebaseFirestore.instance;
-      final query = await db
-          .collection("requisicoesApartamentos")
-          .where("idSindico", isEqualTo: userId)
-          .get();
-
-      final value = query.docs.first.data();
-      return ApartamentoModel.fromMap(value);
-    } catch (error) {
-      debugPrint('ERROR (getApartamento) => $error');
-      throw const ErrorModel(message: 'Erro na busca do Apartamento');
-    }
-  }
+  // @override
+  // Future <List<String>> get(String userId) async {
+  //   try {
+  //     final db = FirebaseFirestore.instance;
+  //     final query = await db
+  //
+  //     .collection("predios")
+  //     .where("idSindico", isEqualTo: userId)
+  //     .get();
+  //
+  //     List<String> idPredios = [];
+  //
+  //     for (DocumentSnapshot item in query.docs){
+  //       final dados = item.data() as dynamic;
+  //       idPredios.add(dados!['id'].data());
+  //       return idPredios;
+  //     }
+  //
+  //         // .collection("requisicoesApartamentos")
+  //         // .where("idSindico", isEqualTo: userId)
+  //         // .get();
+  //
+  //     // final value = query.docs.first.data();
+  //     // return ApartamentoModel.fromMap(value);
+  //   } catch (error) {
+  //     debugPrint('ERROR (getApartamento) => $error');
+  //     throw const ErrorModel(message: 'Erro na busca do Apartamento');
+  //   }
+  // }
 
   @override
   Future<void> update(ApartamentoModel value) async {
     try {
       final db = FirebaseFirestore.instance;
-      await db.collection("predio").doc(value.idPredio).update(value.toMap());
+      await db.collection("predios")
+          .doc(value.idPredio)
+          .collection("apartamentos")
+          .doc(value.numApt.toString())
+          .update(value.toMap());
     } catch (error) {
       debugPrint('ERROR (updateApartamento) => $error');
       throw const ErrorModel(message: 'Erro ao atualizar um apartamento');
+    }
+  }
+  
+  @override
+  Future<void> liberarCadastroApartamento(ApartamentoModel value) async {
+    try{
+      final db = FirebaseFirestore.instance;
+      await db.collection("predios")
+          .doc(value.idPredio)
+      .collection('apartamentos')
+      .doc(value.numApt.toString())
+      .set(value.toMap());
+
+
+      db.collection("requisicoesApartamentos")
+      .doc(value.idPredio)
+      .collection('apartamentos')
+      .doc(value.numApt.toString())
+      .delete();
+    }catch (error) {
+      debugPrint('ERROR (updateApartamento) => $error');
+      throw const ErrorModel(message: 'Erro ao liberar o cadastro do apartamento');
     }
   }
 
@@ -50,10 +93,10 @@ class ApartamentoRepository implements IApartamentoRepository {
     try {
       final db = FirebaseFirestore.instance;
       await db
-          .collection('predio')
+          .collection('predios')
           .doc(value.idPredio)
           .collection('apartamentos')
-          .doc(value.idApartamento)
+          .doc(value.numApt.toString())
           .delete();
 
       // final db = FirebaseFirestore.instance;
