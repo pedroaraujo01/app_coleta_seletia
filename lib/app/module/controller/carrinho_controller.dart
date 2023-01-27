@@ -1,4 +1,4 @@
-import 'package:app_coleta_seletiva/app/module/models/produto_model.dart';
+import 'package:app_coleta_seletiva/app/module/models/produto_vidro_model.dart';
 import 'package:mobx/mobx.dart';
 
 // class CarrinhoController = _CarrinhoControllerBase with _$CarrinhoController;

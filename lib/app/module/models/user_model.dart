@@ -8,9 +8,7 @@ class UserModel {
   final int cpf;
   final String tel;
   final String dtNasc;
-  final String tipoMoradia;
   final String email;
-  final String senha;
   final String tipoUser;
   final int pontuacao;
 
@@ -24,9 +22,7 @@ class UserModel {
     required this.cpf,
     required this.tel,
     required this.dtNasc,
-    required this.tipoMoradia,
     required this.email,
-    required this.senha,
     required this.tipoUser,
     required this.pontuacao,
   });
@@ -42,9 +38,7 @@ class UserModel {
       cpf: map["cpf"],
       tel: map["tel"],
       dtNasc: map["dtNasc"],
-      tipoMoradia: map["tipoMoradia"],
       email: map["email"],
-      senha: map["senha"],
       tipoUser: map["tipoUser"],
       pontuacao: map["pontuacao"],
     );
@@ -56,17 +50,44 @@ class UserModel {
       "endereco": endereco,
       "cidade": cidade,
       "bairro": bairro,
-      "numero": num,
+      "num": num,
       "cep": cep,
       "cpf": cpf,
       "tel": tel,
-      "dtNascimento": dtNasc,
-      "tipoMoradia": tipoMoradia,
+      "dtNasc": dtNasc,
       "email": email,
       "tipoUser": tipoUser,
       "pontuacao": 0
     };
   }
 
-  String verifyUserType(bool isMoradia) => isMoradia ? "APARTAMENTO" : "CASA";
+  UserModel copyWith({
+    String? nome,
+    String? endereco,
+    String? cidade,
+    String? bairro,
+    int? num,
+    int? cep,
+    int? cpf,
+    String? tel,
+    String? dtNasc,
+    String? email,
+    String? tipoUser,
+    int? pontuacao,
+  }) {
+    return UserModel(
+      nome: nome ?? this.nome,
+      endereco: endereco ?? this.endereco,
+      cidade: cidade ?? this.cidade,
+      bairro: bairro ?? this.bairro,
+      num: num ?? this.num,
+      cep: cep ?? this.cep,
+      cpf: cpf ?? this.cpf,
+      tel: tel ?? this.tel,
+      dtNasc: dtNasc ?? this.dtNasc,
+      email: email ?? this.email,
+      tipoUser: tipoUser ?? this.tipoUser,
+      pontuacao: pontuacao ?? this.pontuacao,
+    );
+  }
 }
