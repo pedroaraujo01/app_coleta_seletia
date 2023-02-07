@@ -13,14 +13,14 @@ class UserController = UserControllerBase with _$UserController;
 
 abstract class UserControllerBase with Store {
   //flutter packages pub run build_runner watch --delete-conflicting-outputs
-  Future<void> createUser(UserModel user) async {
-    try {
-      final repository = UserRepository();
-      repository.createUser(user);
-    } on ErrorModel catch (error) {
-      debugPrint(error.message);
-    }
-  }
+  // Future<void> createUser(UserModel user) async {
+  //   try {
+  //     final repository = UserRepository();
+  //     repository.createUser(user);
+  //   } on ErrorModel catch (error) {
+  //     debugPrint(error.message);
+  //   }
+  // }
 
   Future<void> editUser(UserModel user) async {
     try {

@@ -13,8 +13,8 @@ class _NotFoundViewState extends State<NotFoundView> {
     return Scaffold(
       body: Center(
         child: Container(
-          height: 40,
-          width: 40,
+          height: 80,
+          width: 80,
           color: Colors.amber,
           child: Text('Rota nao encontrada'),
         ),

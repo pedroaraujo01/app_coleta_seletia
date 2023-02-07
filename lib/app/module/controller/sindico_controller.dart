@@ -25,14 +25,14 @@ abstract class SindicoControllerBase with Store {
     this._userRepository,
   );
 
-  @override
-  Future<void> solicitarVisitaColetor(PredioModel predio, ApartamentoModel apartamento, CarrinhoModel carrinho) async {
-    try {
-      await _userRepository.solicitarVisitaColetor(predio, apartamento, carrinho);
-    } on ErrorModel catch (error) {
-      debugPrint(error.message);
-    }
-  }
+  // @override
+  // Future<void> solicitarVisitaColetor(PredioModel predio, ApartamentoModel apartamento, CarrinhoModel carrinho) async {
+  //   try {
+  //     await _userRepository.solicitarVisitaColetor(predio, apartamento, carrinho);
+  //   } on ErrorModel catch (error) {
+  //     debugPrint(error.message);
+  //   }
+  // }
 
   void liberarPontuacao(ApartamentoModel apartamento, UserModel user) {
 

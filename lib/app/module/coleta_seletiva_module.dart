@@ -1,3 +1,10 @@
+import 'package:app_coleta_seletiva/app/module/views/ajuda_view.dart';
+import 'package:app_coleta_seletiva/app/module/views/dicas_coleta_view.dart';
+import 'package:app_coleta_seletiva/app/module/views/historico_coletas_view.dart';
+import 'package:app_coleta_seletiva/app/module/views/solicitacoes_coleta_sindico.dart';
+import 'package:app_coleta_seletiva/app/module/views/solicitar_coleta_sindico_view.dart';
+import 'package:app_coleta_seletiva/app/module/views/solicitar_coleta_view.dart';
+
 import 'controller/coletor_controller.dart';
 import 'controller/morador_controller.dart';
 import 'controller/sindico_controller.dart';
@@ -15,7 +22,7 @@ import 'repository/predio/predio_repository.dart';
 import 'repository/user/i_user_repository.dart';
 import 'repository/user/user_repository.dart';
 import 'views/login_view.dart';
-import 'views/painel_coletor_view.dart';
+import 'views/cupons_view.dart';
 import 'views/painel_morador_view.dart';
 import 'views/not_found_view.dart';
 import 'views/painel_sindico_view.dart';
@@ -59,9 +66,39 @@ class ColetaSeletivaModule extends Module {
       child: (_, args) => const PainelSindicoView(),
     ),
     ChildRoute(
-      Paths.painelColetor,
+      Paths.resgatarCupons,
       transition: TransitionType.fadeIn,
-      child: (_, args) => const PainelColetorView(),
+      child: (_, args) => const CuponsView(),
+    ),
+    ChildRoute(
+      Paths.historicoColetas,
+      transition: TransitionType.fadeIn,
+      child: (_, args) => const HistoricoColetasView(),
+    ),
+    ChildRoute(
+      Paths.dicasColeta,
+      transition: TransitionType.fadeIn,
+      child: (_, args) => const DicasColetaView(),
+    ),
+    ChildRoute(
+      Paths.ajuda,
+      transition: TransitionType.fadeIn,
+      child: (_, args) => const AjudaView(),
+    ),
+    ChildRoute(
+      Paths.solicitarColetaMorador,
+      transition: TransitionType.fadeIn,
+      child: (_, args) => const SolicitarColetaMoradorView(),
+    ),
+    ChildRoute(
+      Paths.solicitacoesColetaSindico,
+      transition: TransitionType.fadeIn,
+      child: (_, args) => const SolicitacoesColetaSindicoView(),
+    ),
+    ChildRoute(
+      Paths.solicitarColetaSindico,
+      transition: TransitionType.fadeIn,
+      child: (_, args) => const SolicitarColetaSindicoView(),
     ),
   ];
 }

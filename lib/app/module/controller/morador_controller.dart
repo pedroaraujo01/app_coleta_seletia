@@ -26,21 +26,21 @@ abstract class MoradorControllerBase with Store {
     this._userRepository
   );
 
-  Future<void> solicitarColeta(RequisicaoModel requisicao) async {
-    try {
-      return await _userRepository.solicitarColeta(requisicao);
-    } on ErrorModel catch (_) {
-      rethrow;
-    }
-  }
+  // Future<void> solicitarColeta(RequisicaoModel requisicao) async {
+  //   try {
+  //     return await _userRepository.solicitarColeta(requisicao);
+  //   } on ErrorModel catch (_) {
+  //     rethrow;
+  //   }
+  // }
 
-   resgatarCupom(int pontuacao, UserModel user) async {
-    try {
-      return await _userRepository.resgatarCupom(pontuacao, user);
-    } on ErrorModel catch (_) {
-      rethrow;
-    }
-  }
+  //  resgatarCupom(int pontuacao, UserModel user) async {
+  //   try {
+  //     return await _userRepository.resgatarCupom(pontuacao, user);
+  //   } on ErrorModel catch (_) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<PredioModel> buscarPredio(int cep, String name, String address) async {
     try {
