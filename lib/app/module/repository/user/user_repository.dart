@@ -53,17 +53,17 @@ class UserRepository implements IUserRepository {
       final db = FirebaseFirestore.instance;
       final userId = await getUserId();
       final query = await db.collection("usuarios").doc(userId).get();
-      final map = query.data();
+      var map = query.data() as Map<String, dynamic>;
 
       if (map == null) {
         throw const ErrorModel(message: 'tipoUser nao encontrado');
       }
-      final user = UserModel.fromMap(query.data()!);
+      String tipoUser = map["tipoUser"];
 
-      return user.tipoUser;
+      return tipoUser;
     } catch (error) {
       debugPrint('ERROR (getUserType) = $error');
-      throw const ErrorModel(message: 'tipoUser nao encontrado');
+      throw const ErrorModel(message: 'tipoUser nao encontradoaaaa');
     }
   }
 //REVISAR
@@ -94,38 +94,40 @@ class UserRepository implements IUserRepository {
       throw const ErrorModel(message: 'Erro na consulta de ponuação.');
     }
   }
-  @override
-  Future<bool> resgatarCupom(int pontuacao, UserModel user) async {
-    try {
-      bool resgatado = false;
-      int pontuacaoAtual = await consultarPontuacao(user);
-      if (pontuacaoAtual > pontuacao) {
-        UserModel newUser = UserModel(nome: user.nome,
-            endereco: user.endereco,
-            cidade: user.cidade,
-            bairro: user.bairro,
-            num: user.num,
-            cep: user.cep,
-            cpf: user.cpf,
-            tel: user.tel,
-            dtNasc: user.dtNasc,
-            email: user.email,
-            tipoUser: user.tipoUser,
-            pontuacao: user.pontuacao);
-        pontuacaoAtual = pontuacaoAtual - pontuacao;
-        resgatado = true;
-        newUser = newUser.copyWith(pontuacao: pontuacaoAtual);
-        final userId = await getUserId();
-        final db = FirebaseFirestore.instance;
-        await db.collection("usuarios").doc(userId).update(newUser.toMap());
-      } else{
-        throw const ErrorModel(message: 'Erro no resgate de cupom.');
-      }
-      return resgatado;
-    } catch (error) {
-      debugPrint('ERROR (resgatarCupom) => $error');
-      throw const ErrorModel(message: 'Erro no resgate de cupom.');
-    }
+  // @override
+  // Future<bool> resgatarCupom(int pontuacao, UserModel user) async {
+  //   try {
+  //     bool resgatado = false;
+  //     int pontuacaoAtual = await consultarPontuacao(user);
+  //     if (pontuacaoAtual > pontuacao) {
+  //       UserModel newUser = UserModel(nome: user.nome,
+  //           endereco: user.endereco,
+  //           cidade: user.cidade,
+  //           bairro: user.bairro,
+  //           num: user.num,
+  //           cep: user.cep,
+  //           cpf: user.cpf,
+  //           tel: user.tel,
+  //           dtNasc: user.dtNasc,
+  //           email: user.email,
+  //           tipoUser: user.tipoUser,
+  //           pontuacao: user.pontuacao,
+  //           tipoMoradia: '',
+  //           senha: '',);
+  //       pontuacaoAtual = pontuacaoAtual - pontuacao;
+  //       resgatado = true;
+  //       newUser = newUser.copyWith(pontuacao: pontuacaoAtual);
+  //       final userId = await getUserId();
+  //       final db = FirebaseFirestore.instance;
+  //       await db.collection("usuarios").doc(userId).update(newUser.toMap());
+  //     } else{
+  //       throw const ErrorModel(message: 'Erro no resgate de cupom.');
+  //     }
+  //     return resgatado;
+  //   } catch (error) {
+  //     debugPrint('ERROR (resgatarCupom) => $error');
+  //     throw const ErrorModel(message: 'Erro no resgate de cupom.');
+  //   }
 
   }
 //REVISAR
@@ -148,18 +150,18 @@ class UserRepository implements IUserRepository {
   //ESSA
   //PARTE
 
-    Future<void> liberarPontuacao(CarrinhoModel carrinho) async {
-      try{
-        final db = FirebaseFirestore.instance;
-        await db.collection("usuarios").doc(carrinho.idMorador).update({"pontuacao" : carrinho.pontuacao});
-      }catch (error) {
-        debugPrint('ERROR (createPredio) => $error');
-        throw const ErrorModel(message: 'Erro ao liberar pontuação.');
-      }
-}
+    // Future<void> liberarPontuacao(CarrinhoModel carrinho) async {
+    //   try{
+    //     final db = FirebaseFirestore.instance;
+    //     await db.collection("usuarios").doc(carrinho.idMorador).update({"pontuacao" : carrinho.pontuacao});
+    //   }catch (error) {
+    //     debugPrint('ERROR (createPredio) => $error');
+    //     throw const ErrorModel(message: 'Erro ao liberar pontuação.');
+    //   }
+// }
 
 
 
 
 
-}
+// }

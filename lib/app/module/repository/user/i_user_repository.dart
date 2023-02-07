@@ -5,11 +5,11 @@ import '../../models/user_model.dart';
 
 abstract class IUserRepository {
   bool userIsLogged();
-  Future<void> editUser(UserModel newUser);
+  // Future<void> editUser(UserModel newUser);
   Future<String> getUserId();
   Future<String> getUserType();
-  Future<void> solicitarColeta(CarrinhoModel carrinho);
-  Future<int> consultarPontuacao(UserModel user);
-  Future<bool> resgatarCupom(int pontuacao, UserModel user);
-  Future<void> solicitarVisita(CarrinhoModel carrinho);
+  // Future<void> solicitarColeta(CarrinhoModel carrinho);
+  // Future<int> consultarPontuacao(UserModel user);
+  // Future<bool> resgatarCupom(int pontuacao, UserModel user);
+  // Future<void> solicitarVisita(CarrinhoModel carrinho);
 }

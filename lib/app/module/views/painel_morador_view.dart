@@ -1,3 +1,4 @@
+import 'package:app_coleta_seletiva/app/module/views/grid_view_morador.dart';
 import 'package:flutter/material.dart';
 
 class PainelMoradorView extends StatefulWidget {
@@ -10,14 +11,9 @@ class PainelMoradorView extends StatefulWidget {
 class _PainelMoradorViewState extends State<PainelMoradorView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          height: 40,
-          width: 40,
-          color: Colors.amber,
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreenMorador(),
     );
   }
 }

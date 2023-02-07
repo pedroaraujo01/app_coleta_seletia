@@ -1,5 +1,9 @@
+import 'package:app_coleta_seletiva/app/module/coleta_seletiva_module.dart';
+import 'package:app_coleta_seletiva/app/module/controller/user_controller.dart';
 import 'package:app_coleta_seletiva/app/module/repository/auth/auth_repository.dart';
+import 'package:app_coleta_seletiva/app/shared/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -10,18 +14,19 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
-  TextEditingController _controllerUsuario = TextEditingController(text: "coletor@c.com");
-  TextEditingController _controllerSenha = TextEditingController(text: "123abcd");
-  String _mensagemErro= "";
-  bool _carregando = false;
+  final TextEditingController _controllerUsuario = TextEditingController(text: "a@a.com");
+  final TextEditingController _controllerSenha = TextEditingController(text: "123456a");
+  final String _mensagemErro= "";
+  final bool _carregando = false;
   AuthRepository auth = AuthRepository();
+  UserController user = UserController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         //Decoration Corpo
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage("lib/app/imagens/fundo.png",),
               fit: BoxFit.cover
@@ -29,7 +34,7 @@ class _LoginViewState extends State<LoginView> {
         ),
 
         //Container Conteudo
-        padding: EdgeInsets.all(32),
+        padding: const EdgeInsets.all(32),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -38,7 +43,7 @@ class _LoginViewState extends State<LoginView> {
 
                 //Padding Logo
                 Padding(
-                  padding: EdgeInsets.only(bottom: 32),
+                  padding: const EdgeInsets.only(bottom: 32),
                   child: Image.asset(
                     "lib/app/imagens/logo.png",
                     width: 200,
@@ -51,9 +56,9 @@ class _LoginViewState extends State<LoginView> {
                   controller: _controllerUsuario,
                   autofocus: true,
                   keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                      contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                       hintText: "E-mail",
                       filled: true,
                       fillColor: Colors.white,
@@ -68,9 +73,9 @@ class _LoginViewState extends State<LoginView> {
                   controller: _controllerSenha,
                   obscureText: true,
                   keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                      contentPadding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
                       hintText: "Senha",
                       filled: true,
                       fillColor: Colors.white,
@@ -82,9 +87,9 @@ class _LoginViewState extends State<LoginView> {
 
                 //Botão Login
                 Padding(
-                  padding: EdgeInsets.only(top: 16, bottom: 10),
+                  padding: const EdgeInsets.only(top: 16, bottom: 10),
                   child: ElevatedButton(
-                    child: Text(
+                    child: const Text(
                       "Login",
                       style: TextStyle(
                           color: Colors.white,
@@ -93,23 +98,23 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     onPressed: (){
                       auth.signIn(_controllerUsuario.text, _controllerSenha.text);
-
+                      user.getUserTypeById();
                     },
                   ),
                 ),
 
                 //Carregando
                 _carregando
-                    ? Center(child: CircularProgressIndicator(backgroundColor: Colors.yellow,),)
+                    ? const Center(child: CircularProgressIndicator(backgroundColor: Colors.yellow,),)
                     : Container(),
 
                 //Mensagem Erro
                 Padding(
-                    padding: EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.only(top: 16),
                     child: Center(
                       child: Text(
                         _mensagemErro,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.red,
                             fontSize: 20
                         ),
