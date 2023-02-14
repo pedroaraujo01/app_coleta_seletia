@@ -19,7 +19,46 @@ class SolicitarColetaMoradorView extends StatefulWidget {
 class _SolicitarColetaMoradorView extends State<SolicitarColetaMoradorView> {
   AuthRepository auth = AuthRepository();
   UserController user = UserController();
-  final List<TipoColetaMorador> _tipocoleta = TipoColetaMorador.generateItems(4);
+  int _350v = 0;
+  int _450v = 0;
+  int _500v = 0;
+  int _600v = 0;
+  int _800v = 0;
+  int _1000v = 0;
+
+  String _infoText = "Pode Entrar!";
+
+  void _350(int delta){
+    setState(() {
+      _350v += delta;
+    });
+  }
+  void _450(int delta){
+    setState(() {
+      _450v += delta;
+    });
+  }
+  void _500(int delta){
+    setState(() {
+      _500v += delta;
+    });
+  }
+  void _600(int delta){
+    setState(() {
+      _600v += delta;
+    });
+  }
+  void _800(int delta){
+    setState(() {
+      _800v += delta;
+    });
+  }
+
+  void _1000(int delta){
+    setState(() {
+      _1000v += delta;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,40 +121,343 @@ class _SolicitarColetaMoradorView extends State<SolicitarColetaMoradorView> {
                     SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(12),
-                        child: ExpansionPanelList.radio(
-                          expansionCallback: (int index, bool isExpanded) {
-                            setState(() => _tipocoleta[index].isExpanded = !isExpanded);
-                          },
-                          children: _tipocoleta.map<ExpansionPanel>((TipoColetaMorador product) {
-                            return ExpansionPanelRadio(
-                              // isExpanded: product.isExpanded,
-                              value: product.id,
-                              canTapOnHeader: true,
+                        child: ExpansionPanelList(
+                          expansionCallback: (int index, bool isExpanded){},
+                          children: [
+                            ExpansionPanel(
                               headerBuilder: (BuildContext context, bool isExpanded) {
-                                return ListTile(
-                                  leading: CircleAvatar(child: Text(product.id.toString())),
-                                  title: Text(product.title),
+                                return const ListTile(
+                                  title: Text('Vidro'),
                                 );
                               },
                               body: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 12.0),
-                                    child: Text(product.description),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '350mL',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 22),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "+1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _350(1);
+                                          },
+                                        ),
+                                      ),
+                                      Text(
+                                        "$_350v",
+                                        style:
+                                        TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "-1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _350(-1);
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  // Image.network('https://picsum.photos/id/${product.id}/500/300'),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '450mL',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 22),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "+1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _450(1);
+                                          },
+                                        ),
+                                      ),
+                                      Text(
+                                        "$_450v",
+                                        style:
+                                        TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "-1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _450(-1);
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '500mL',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 22),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "+1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _500(1);
+                                          },
+                                        ),
+                                      ),
+                                      Text(
+                                        "$_500v",
+                                        style:
+                                        TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "-1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _500(-1);
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '600mL',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 22),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "+1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _600(1);
+                                          },
+                                        ),
+                                      ),
+                                      Text(
+                                        "$_600v",
+                                        style:
+                                        TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "-1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _600(-1);
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '800mL',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 22),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "+1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _800(1);
+                                          },
+                                        ),
+                                      ),
+                                      Text(
+                                        "$_800v",
+                                        style:
+                                        TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "-1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _800(-1);
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '1000mL',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 22),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "+1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _1000(1);
+                                          },
+                                        ),
+                                      ),
+                                      Text(
+                                        "$_1000v",
+                                        style:
+                                        TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(15.0),
+                                        child: ElevatedButton(
+                                          child: Text(
+                                            "-1",
+                                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            _1000(-1);
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            );
-                          }).toList(),
+                              isExpanded: true,
+                            ),
+                            ExpansionPanel(
+                              headerBuilder: (BuildContext context, bool isExpanded) {
+                                return const ListTile(
+                                  title: Text('Plástico'),
+                                );
+                              },
+                              body: const Padding(
+                                padding: EdgeInsets.all(15),
+                                child: TextField(
+                                  obscureText: true,
+                                  keyboardType: TextInputType.emailAddress,
+                                  style: TextStyle(fontSize: 20),
+                                  decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                      hintText: "valor em gramas",
+                                      filled: true,
+                                      fillColor: Colors.green,
+                                  ),
+                                ),
+                              ),
+                              isExpanded: true,
+                            ),
+                            ExpansionPanel(
+                              headerBuilder: (BuildContext context, bool isExpanded) {
+                                return const ListTile(
+                                  title: Text('Papel'),
+                                );
+                              },
+                              body: const Padding(
+                                padding: EdgeInsets.all(15),
+                                child: TextField(
+                                  obscureText: true,
+                                  keyboardType: TextInputType.emailAddress,
+                                  style: TextStyle(fontSize: 20),
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                    hintText: "Insira o valor em gramas...",
+                                    filled: true,
+                                    fillColor: Colors.green,
+                                  ),
+                                ),
+                              ),
+                              isExpanded: true,
+                            ),
+                            ExpansionPanel(
+                              headerBuilder: (BuildContext context, bool isExpanded) {
+                                return const ListTile(
+                                  title: Text('Metal'),
+                                );
+                              },
+                              body: const Padding(
+                                padding: EdgeInsets.all(15),
+                                child: TextField(
+                                  obscureText: true,
+                                  keyboardType: TextInputType.emailAddress,
+                                  style: TextStyle(fontSize: 20),
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                    hintText: "Insira o valor em gramas...",
+                                    filled: true,
+                                    fillColor: Colors.green,
+                                  ),
+                                ),
+                              ),
+                              isExpanded: true,
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 80),
+                    const SizedBox(height: 80),
                     ElevatedButton(
                       style: style,
-                      onPressed: () {},
+                      onPressed: () {
+                        Modular.to.pushNamed(Routes.painelMorador);
+                      },
                       child: const Text('Salvar'),
                     ),
                   ],

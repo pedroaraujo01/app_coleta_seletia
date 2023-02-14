@@ -19,7 +19,7 @@ class DicasColetaView extends StatefulWidget {
 class _DicasColetaView extends State<DicasColetaView> {
   AuthRepository auth = AuthRepository();
   UserController user = UserController();
-  final List<Dicas> _dicas = Dicas.generateItems(4);
+  final List<Dicas> _dicas = Dicas.generateItems(1);
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +90,8 @@ class _DicasColetaView extends State<DicasColetaView> {
                             canTapOnHeader: true,
                             headerBuilder: (BuildContext context, bool isExpanded) {
                               return ListTile(
-                                leading: CircleAvatar(child: Text(product.id.toString())),
-                                title: Text(product.title),
+                                leading: CircleAvatar(child: const Text('1')),
+                                title: Text('Dicas'),
                               );
                             },
                             body: Column(
@@ -99,7 +99,11 @@ class _DicasColetaView extends State<DicasColetaView> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 12.0),
-                                  child: Text(product.description),
+                                  child: Column(
+                                    children: [
+                                      Text('Todo o resíduo reciclável é capaz de passar pelo processo de transformação. Nesse processo o resíduo pode voltar para o seu estado original ou se transformar em outro produto. Os resíduos recicláveis devem ser separados e armazenados corretamente. Devem estar limpos e secos'),
+                                    ],
+                                  ),
                                 ),
                                 // Image.network('https://picsum.photos/id/${product.id}/500/300'),
                               ],

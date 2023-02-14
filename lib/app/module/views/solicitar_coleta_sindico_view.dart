@@ -19,7 +19,7 @@ class SolicitarColetaSindicoView extends StatefulWidget {
 class _SolicitarColetaSindicoView extends State<SolicitarColetaSindicoView> {
   AuthRepository auth = AuthRepository();
   UserController user = UserController();
-  final List<TipoColetaMorador> _tipocoleta = TipoColetaMorador.generateItems(4);
+  // final List<TipoColetaMorador> _tipocoleta = TipoColetaMorador.generateItems(4);
 
   @override
   Widget build(BuildContext context) {
@@ -82,37 +82,62 @@ class _SolicitarColetaSindicoView extends State<SolicitarColetaSindicoView> {
                     SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(12),
-                        child: ExpansionPanelList.radio(
-                          expansionCallback: (int index, bool isExpanded) {
-                            setState(() => _tipocoleta[index].isExpanded = !isExpanded);
-                          },
-                          children: _tipocoleta.map<ExpansionPanel>((TipoColetaMorador product) {
-                            return ExpansionPanelRadio(
-                              // isExpanded: product.isExpanded,
-                              value: product.id,
-                              canTapOnHeader: true,
+                        child: ExpansionPanelList(
+                          expansionCallback: (int index, bool isExpanded) {},
+                          children: [
+                            ExpansionPanel(
                               headerBuilder: (BuildContext context, bool isExpanded) {
-                                return ListTile(
-                                  leading: CircleAvatar(child: Text(product.id.toString())),
-                                  title: Text(product.title),
+                                return const ListTile(
+                                  title: Text('Item 1'),
                                 );
                               },
-                              body: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 12.0),
-                                    child: Text(product.description),
-                                  ),
-                                  // Image.network('https://picsum.photos/id/${product.id}/500/300'),
-                                ],
+                              body: const ListTile(
+                                title: Text('Item 1 child'),
+                                subtitle: Text('Details goes here'),
                               ),
-                            );
-                          }).toList(),
+                              isExpanded: true,
+                            ),
+                            ExpansionPanel(
+                              headerBuilder: (BuildContext context, bool isExpanded) {
+                                return const ListTile(
+                                  title: Text('Item 2'),
+                                );
+                              },
+                              body: const ListTile(
+                                title: Text('Item 2 child'),
+                                subtitle: Text('Details goes here'),
+                              ),
+                              isExpanded: false,
+                            ),
+                            ExpansionPanel(
+                              headerBuilder: (BuildContext context, bool isExpanded) {
+                                return const ListTile(
+                                  title: Text('Item 2'),
+                                );
+                              },
+                              body: const ListTile(
+                                title: Text('Item 2 child'),
+                                subtitle: Text('Details goes here'),
+                              ),
+                              isExpanded: false,
+                            ),
+                            ExpansionPanel(
+                              headerBuilder: (BuildContext context, bool isExpanded) {
+                                return const ListTile(
+                                  title: Text('Item 2'),
+                                );
+                              },
+                              body: const ListTile(
+                                title: Text('Item 2 child'),
+                                subtitle: Text('Details goes here'),
+                              ),
+                              isExpanded: false,
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 80),
+                    const SizedBox(height: 80),
                     ElevatedButton(
                       style: style,
                       onPressed: () {},

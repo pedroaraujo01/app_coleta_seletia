@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../shared/app_routes.dart';
 
 class CuponsView extends StatefulWidget {
   const CuponsView({Key? key}) : super(key: key);
@@ -46,17 +49,22 @@ class _CuponsViewViewState extends State<CuponsView> {
               child: ListView.builder(
                 itemCount : 1,
                 itemBuilder: (context, index) {
-                    return const ListTile(
-                      leading: CircleAvatar(
-                      backgroundImage: AssetImage(
-                      'lib/app/imagens/americanas.png'),
-                      ),
-                      title: Text("10% OFF em qualquer compra do app.",
-                      style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.black)),
-                      subtitle: Text("200 pontos"),
-                      );
+                    return GestureDetector(
+                      onTap: (){
+                        Modular.to.pushNamed(Routes.painelMorador);
+                      },
+                      child: const ListTile(
+                        leading: CircleAvatar(
+                        backgroundImage: AssetImage(
+                        'lib/app/imagens/americanas.png'),
+                        ),
+                        title: Text("10% OFF em qualquer compra do app.",
+                        style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black)),
+                        subtitle: Text("200 pontos"),
+                        ),
+                    );
                   },
               ),
             ),
