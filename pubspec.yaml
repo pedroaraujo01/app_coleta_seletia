@@ -20,6 +20,7 @@ dependencies:
   firebase_storage: ^11.0.6
   cloud_firestore: ^4.1.0
   flutter_svg:
+  provider:
 
 dev_dependencies:
   flutter_test:
