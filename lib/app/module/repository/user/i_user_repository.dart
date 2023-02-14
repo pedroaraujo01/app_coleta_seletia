@@ -9,7 +9,8 @@ abstract class IUserRepository {
   Future<String> getUserId();
   Future<String> getUserType();
   // Future<void> solicitarColeta(CarrinhoModel carrinho);
-  // Future<int> consultarPontuacao(UserModel user);
+  Future<int> consultarPontuacao(UserModel user);
+  Future<void> atualizarPontuacao(int pontuacao, UserModel user);
   // Future<bool> resgatarCupom(int pontuacao, UserModel user);
-  // Future<void> solicitarVisita(CarrinhoModel carrinho);
+  Future<void> solicitarVisita(CarrinhoModel carrinho);
 }

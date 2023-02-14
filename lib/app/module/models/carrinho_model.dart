@@ -1,4 +1,4 @@
-import 'package:app_coleta_seletiva/app/module/models/predio_model.dart';
+
 import 'package:app_coleta_seletiva/app/module/models/produto_metal_model.dart';
 import 'package:app_coleta_seletiva/app/module/models/produto_papel_model.dart';
 import 'package:app_coleta_seletiva/app/module/models/produto_plastico_model.dart';

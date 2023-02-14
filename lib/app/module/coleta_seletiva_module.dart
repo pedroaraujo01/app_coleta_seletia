@@ -5,11 +5,8 @@ import 'package:app_coleta_seletiva/app/module/views/solicitacoes_coleta_sindico
 import 'package:app_coleta_seletiva/app/module/views/solicitar_coleta_sindico_view.dart';
 import 'package:app_coleta_seletiva/app/module/views/solicitar_coleta_view.dart';
 
-import 'controller/coletor_controller.dart';
 import 'controller/morador_controller.dart';
 import 'controller/sindico_controller.dart';
-import 'repository/apartamento/apartamento_repository.dart';
-import 'repository/apartamento/i_apartamento_repository.dart';
 import 'repository/auth/i_auth_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -31,15 +28,13 @@ class ColetaSeletivaModule extends Module {
   @override
   final List<Bind> binds = [
     // Repository
-    Bind.lazySingleton<IApartamentoRepository>((i) => ApartamentoRepository()),
     Bind.lazySingleton<IPredioRepository>((i) => PredioRepository()),
     Bind.lazySingleton<IAuthRepository>((i) => AuthRepository()),
     Bind.lazySingleton<IUserRepository>((i) => UserRepository()),
 
     // Controllers
-    Bind.lazySingleton((i) => ColetorController()),
-    Bind.lazySingleton((i) => MoradorController(i.get(), i.get(), i.get())),
-    Bind.lazySingleton((i) => SindicoController(i.get(), i.get(), i.get())),
+    Bind.lazySingleton((i) => MoradorController(i.get(), i.get())),
+    Bind.lazySingleton((i) => SindicoController(i.get(), i.get())),
     Bind.lazySingleton((i) => AuthController()),
     Bind.lazySingleton((i) => UserController()),
   ];

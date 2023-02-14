@@ -66,10 +66,17 @@ class UserRepository implements IUserRepository {
       throw const ErrorModel(message: 'tipoUser nao encontradoaaaa');
     }
   }
+
+
 //REVISAR
   @override
   Future<void> solicitarColeta(CarrinhoModel carrinho) async {
     try {
+      final db = FirebaseFirestore.instance;
+      final userId = await getUserId();
+      db.collection("solicitColeta")
+          .doc(userId)
+          .set(carrinho.toMap());
 
 
       } catch (error) {
@@ -91,46 +98,31 @@ class UserRepository implements IUserRepository {
       return map['pontuacao'];
     } catch (error){
       debugPrint('ERROR (consultarPontuacao) => $error');
-      throw const ErrorModel(message: 'Erro na consulta de ponuação.');
+      throw const ErrorModel(message: 'Erro na consulta de pontuação.');
     }
   }
-  // @override
-  // Future<bool> resgatarCupom(int pontuacao, UserModel user) async {
-  //   try {
-  //     bool resgatado = false;
-  //     int pontuacaoAtual = await consultarPontuacao(user);
-  //     if (pontuacaoAtual > pontuacao) {
-  //       UserModel newUser = UserModel(nome: user.nome,
-  //           endereco: user.endereco,
-  //           cidade: user.cidade,
-  //           bairro: user.bairro,
-  //           num: user.num,
-  //           cep: user.cep,
-  //           cpf: user.cpf,
-  //           tel: user.tel,
-  //           dtNasc: user.dtNasc,
-  //           email: user.email,
-  //           tipoUser: user.tipoUser,
-  //           pontuacao: user.pontuacao,
-  //           tipoMoradia: '',
-  //           senha: '',);
-  //       pontuacaoAtual = pontuacaoAtual - pontuacao;
-  //       resgatado = true;
-  //       newUser = newUser.copyWith(pontuacao: pontuacaoAtual);
-  //       final userId = await getUserId();
-  //       final db = FirebaseFirestore.instance;
-  //       await db.collection("usuarios").doc(userId).update(newUser.toMap());
-  //     } else{
-  //       throw const ErrorModel(message: 'Erro no resgate de cupom.');
-  //     }
-  //     return resgatado;
-  //   } catch (error) {
-  //     debugPrint('ERROR (resgatarCupom) => $error');
-  //     throw const ErrorModel(message: 'Erro no resgate de cupom.');
-  //   }
+  @override
+  Future<void> atualizarPontuacao(int pontuacao, UserModel user) async {
+    try{
+      final db = FirebaseFirestore.instance;
+      final query = await db
+          .collection("usuarios")
+          .where("cpf", isEqualTo: user.cpf)
+          .get();
 
+      Map map = query.docs.first.data();
+      map["pontuacao"] = pontuacao;
+
+      db.collection("usuarios")
+      .doc(user.cpf.toString())
+      .update(map["pontuacao"]);
+
+    }catch (error){
+      debugPrint('ERROR (consultarPontuacao) => $error');
+      throw const ErrorModel(message: 'Erro na atualização de pontuação.');
+    }
   }
-//REVISAR
+
   @override
   Future<void> solicitarVisita(CarrinhoModel carrinho) async {
     try {
@@ -143,25 +135,4 @@ class UserRepository implements IUserRepository {
     }
   }
 
-
-
-
-  //REVISAR
-  //ESSA
-  //PARTE
-
-    // Future<void> liberarPontuacao(CarrinhoModel carrinho) async {
-    //   try{
-    //     final db = FirebaseFirestore.instance;
-    //     await db.collection("usuarios").doc(carrinho.idMorador).update({"pontuacao" : carrinho.pontuacao});
-    //   }catch (error) {
-    //     debugPrint('ERROR (createPredio) => $error');
-    //     throw const ErrorModel(message: 'Erro ao liberar pontuação.');
-    //   }
-// }
-
-
-
-
-
-// }
+}
