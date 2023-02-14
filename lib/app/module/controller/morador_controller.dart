@@ -1,4 +1,6 @@
 
+import 'package:app_coleta_seletiva/app/module/controller/carrinho_controller.dart';
+import 'package:app_coleta_seletiva/app/module/models/carrinho_model.dart';
 import 'package:app_coleta_seletiva/app/module/models/user_model.dart';
 import 'package:app_coleta_seletiva/app/module/repository/user/i_user_repository.dart';
 import 'package:flutter/material.dart';
@@ -43,13 +45,33 @@ abstract class MoradorControllerBase with Store {
     }
   }
 
-  Future<void> solicitarColeta(UserModel user, ) async {
+  Future<void> solicitarColeta(itemPapel, itemPlastico, itemMetal, itemVidro1, itemVidro2, itemVidro3, itemVidro4, itemVidro5, itemVidro6) async {
     try{
+      CarrinhoController carrinho = CarrinhoController(_userRepository);
+      var papel = await carrinho.papelModel(itemPapel);
+      var plastico = await carrinho.plasticoModel(itemPlastico);
+      var metal = await carrinho.metalModel(itemMetal);
+      var vidro = await carrinho.vidroModel(itemVidro1, itemVidro2, itemVidro3, itemVidro4, itemVidro5, itemVidro6)
+      carrinho.multiplicarVidro(vidro);
+      var carrinhoMontado = await carrinho.montarCarrinho(papel, vidro, plastico, metal);
       final repository = UserRepository();
+      repository.salvarHistorico(carrinhoMontado);
 
 
     } catch (error){
+      debugPrint('ERROR (consultarPontuacao) => $error');
+      throw const ErrorModel(message: 'Erro na solicitacao de coleta.');
+    }
+  }
 
+  Future<Map<String, dynamic>> verificarHistorico(){
+    try{
+      final repository = UserRepository();
+      var historico = repository.verificarHistorico();
+      return historico;
+    }catch (error) {
+      debugPrint('ERROR (consultarPontuacao) => $error');
+      throw const ErrorModel(message: 'Erro na verificacao do historico.');
     }
   }
 

@@ -5,6 +5,7 @@ class ProdutoVidroModel{
   int v600;
   int v800;
   int v1000;
+  int totalItens;
 
   ProdutoVidroModel({
     required this.v350,
@@ -13,6 +14,7 @@ class ProdutoVidroModel{
     required this.v600,
     required this.v800,
     required this.v1000,
+    required this.totalItens,
 });
 
   factory ProdutoVidroModel.fromMap(Map<String, dynamic> map) {
@@ -23,6 +25,7 @@ class ProdutoVidroModel{
       v600: map["v600"],
       v800: map["v800"],
       v1000: map["v1000"],
+      totalItens: map["totalItens"],
     );
   }
 
@@ -34,6 +37,7 @@ class ProdutoVidroModel{
       "v600" : v600,
       "v800" : v800,
       "v1000" : v1000,
+      "totalItens" : totalItens
     };
   }
 
@@ -45,6 +49,7 @@ class ProdutoVidroModel{
     int? v600,
     int? v800,
     int? v1000,
+    int? totalItens,
 }) {
     return ProdutoVidroModel(
       v350: v350 ?? this.v350,
@@ -53,6 +58,7 @@ class ProdutoVidroModel{
       v600: v600 ?? this.v600,
       v800: v800 ?? this.v800,
       v1000: v1000 ?? this.v1000,
+      totalItens: totalItens ?? this.totalItens
     );
   }
 

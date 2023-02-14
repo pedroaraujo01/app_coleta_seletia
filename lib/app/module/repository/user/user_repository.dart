@@ -74,7 +74,7 @@ class UserRepository implements IUserRepository {
     try {
       final db = FirebaseFirestore.instance;
       final userId = await getUserId();
-      db.collection("solicitColeta")
+      db.collection("solicitacoes")
           .doc(userId)
           .set(carrinho.toMap());
 
@@ -84,6 +84,8 @@ class UserRepository implements IUserRepository {
       throw const ErrorModel(message: 'Erro ao solicitar coleta.');
     }
   }
+
+
   
   @override
   Future<int> consultarPontuacao(UserModel user) async {
@@ -127,11 +129,89 @@ class UserRepository implements IUserRepository {
   Future<void> solicitarVisita(CarrinhoModel carrinho) async {
     try {
       final db = FirebaseFirestore.instance;
-      await db.collection("coletaAguardando").add(carrinho.toMap());
+      await db.collection("solicitacoes").get();
+
 
     } catch (error) {
       debugPrint('ERROR (createPredio) => $error');
       throw const ErrorModel(message: 'Erro ao solicitar visita do coletor.');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> verificarSolicitacoes () async{
+    try {
+      final db = FirebaseFirestore.instance;
+      Map<String, dynamic> solicitacao = (await db.collection("solicitacoes").get()) as Map<String, dynamic>;
+
+      return solicitacao;
+
+    } catch (error) {
+      debugPrint('ERROR (createPredio) => $error');
+      throw const ErrorModel(message: 'Erro ao solicitar verificar solicitacoes.');
+    }
+  }
+
+  @override
+  Future<void> aceitarSolicitacao() async {
+    try {
+      final db = FirebaseFirestore.instance;
+      Map<String, dynamic> solicitacao = (await db.collection("solicitacoes").get()) as Map<String, dynamic>;
+
+      final userId = await getUserId();
+      db.collection("solicitacoesAceitas")
+          .doc(userId)
+          .set(solicitacao);
+
+
+    } catch (error) {
+      debugPrint('ERROR (createPredio) => $error');
+      throw const ErrorModel(message: 'Erro ao aceitar solicitacoes.');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> verificarSolicitacoesAceitas () async{
+    try {
+      final db = FirebaseFirestore.instance;
+      Map<String, dynamic> solicitacao = (await db.collection("solicitacoes").get()) as Map<String, dynamic>;
+
+      return solicitacao;
+
+    } catch (error) {
+      debugPrint('ERROR (createPredio) => $error');
+      throw const ErrorModel(message: 'Erro ao solicitar verificar solicitacoes aceitas.');
+    }
+  }
+
+  @override
+  Future<void> salvarHistorico (CarrinhoModel carrinho) async {
+    try {
+      final db = FirebaseFirestore.instance;
+      final userId = await getUserId();
+      db.collection("historico")
+          .doc(userId)
+          .set(carrinho.toMap());
+
+
+    } catch (error) {
+      debugPrint('ERROR (solicitarColeta) => $error');
+      throw const ErrorModel(message: 'Erro ao salvar historico de coleta.');
+    }
+
+  }
+
+  @override
+  Future<Map<String, dynamic>> verificarHistorico () async{
+    try {
+      final db = FirebaseFirestore.instance;
+      Map<String, dynamic> historico = (await db.collection("historico").get()) as Map<String, dynamic>;
+
+      return historico;
+
+    } catch (error) {
+      debugPrint('ERROR (createPredio) => $error');
+      throw const ErrorModel(message: 'Erro ao solicitar verificar historico.');
     }
   }
 

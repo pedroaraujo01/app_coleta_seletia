@@ -12,5 +12,6 @@ abstract class IUserRepository {
   Future<int> consultarPontuacao(UserModel user);
   Future<void> atualizarPontuacao(int pontuacao, UserModel user);
   // Future<bool> resgatarCupom(int pontuacao, UserModel user);
-  Future<void> solicitarVisita(CarrinhoModel carrinho);
+  // Future<void> solicitarVisita(CarrinhoModel carrinho);
+  Future<Map<String, dynamic>> verificarSolicitacoes();
 }
