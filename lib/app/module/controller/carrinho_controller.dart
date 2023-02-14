@@ -13,11 +13,7 @@ part 'carrinho_controller.g.dart';
 class CarrinhoController = CarrinhoControllerBase with _$CarrinhoController;
 
 abstract class CarrinhoControllerBase with Store{
-  final IUserRepository _userRepository;
 
-  const CarrinhoControllerBase(
-      this._userRepository
-      );
 
   Future<ProdutoVidroModel> vidroModel(int item1, int item2, int item3, int item4, int item5, int item6) async{
 

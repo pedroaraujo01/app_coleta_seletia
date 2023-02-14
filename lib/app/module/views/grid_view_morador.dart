@@ -1,3 +1,4 @@
+import 'package:app_coleta_seletiva/app/module/controller/morador_controller.dart';
 import 'package:app_coleta_seletiva/app/module/controller/user_controller.dart';
 import 'package:app_coleta_seletiva/app/module/repository/auth/auth_repository.dart';
 import 'package:app_coleta_seletiva/app/shared/app_routes.dart';
@@ -15,6 +16,7 @@ class HomeScreenMorador extends StatefulWidget {
 class _HomeScreenStateMorador extends State<HomeScreenMorador> {
   AuthRepository auth = AuthRepository();
   UserController user = UserController();
+  MoradorController morador = MoradorController();
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +111,7 @@ class _HomeScreenStateMorador extends State<HomeScreenMorador> {
 
                         GestureDetector(
                           onTap: () {
+
                             Modular.to.pushNamed(Routes.solicitarColetaMorador);
                           },
                           child: Card(

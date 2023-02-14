@@ -2,7 +2,6 @@
 import 'package:app_coleta_seletiva/app/module/controller/carrinho_controller.dart';
 import 'package:app_coleta_seletiva/app/module/models/carrinho_model.dart';
 import 'package:app_coleta_seletiva/app/module/models/user_model.dart';
-import 'package:app_coleta_seletiva/app/module/repository/user/i_user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -15,13 +14,6 @@ part 'morador_controller.g.dart';
 class MoradorController = MoradorControllerBase with _$MoradorController;
 
 abstract class MoradorControllerBase with Store {
-  final IPredioRepository _predioRepository;
-  final IUserRepository _userRepository;
-
-  const MoradorControllerBase(
-    this._predioRepository,
-    this._userRepository
-  );
 
 
   Future<bool> resgatarCupom(int pontuacao, UserModel user) async {
@@ -47,7 +39,7 @@ abstract class MoradorControllerBase with Store {
 
   Future<void> solicitarColeta(itemPapel, itemPlastico, itemMetal, itemVidro1, itemVidro2, itemVidro3, itemVidro4, itemVidro5, itemVidro6) async {
     try{
-      CarrinhoController carrinho = CarrinhoController(_userRepository);
+      CarrinhoController carrinho = CarrinhoController();
       var papel = await carrinho.papelModel(itemPapel);
       var plastico = await carrinho.plasticoModel(itemPlastico);
       var metal = await carrinho.metalModel(itemMetal);
