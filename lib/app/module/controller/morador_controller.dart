@@ -51,7 +51,7 @@ abstract class MoradorControllerBase with Store {
       var papel = await carrinho.papelModel(itemPapel);
       var plastico = await carrinho.plasticoModel(itemPlastico);
       var metal = await carrinho.metalModel(itemMetal);
-      var vidro = await carrinho.vidroModel(itemVidro1, itemVidro2, itemVidro3, itemVidro4, itemVidro5, itemVidro6)
+      var vidro = await carrinho.vidroModel(itemVidro1, itemVidro2, itemVidro3, itemVidro4, itemVidro5, itemVidro6);
       carrinho.multiplicarVidro(vidro);
       var carrinhoMontado = await carrinho.montarCarrinho(papel, vidro, plastico, metal);
       final repository = UserRepository();
@@ -72,6 +72,39 @@ abstract class MoradorControllerBase with Store {
     }catch (error) {
       debugPrint('ERROR (consultarPontuacao) => $error');
       throw const ErrorModel(message: 'Erro na verificacao do historico.');
+    }
+  }
+
+  Future<Map<String, dynamic>> verificarSolicitacoes(){
+    try{
+      final repository = UserRepository();
+      var historico = repository.verificarSolicitacoes();
+      return historico;
+    }catch (error) {
+      debugPrint('ERROR (consultarPontuacao) => $error');
+      throw const ErrorModel(message: 'Erro na verificacao de solicitacao.');
+    }
+  }
+
+  Future<Map<String, dynamic>> verificarSolicitacoesAceitas(){
+    try{
+      final repository = UserRepository();
+      var historico = repository.verificarSolicitacoesAceitas();
+      return historico;
+    }catch (error) {
+      debugPrint('ERROR (consultarPontuacao) => $error');
+      throw const ErrorModel(message: 'Erro na verificacao de solicitacao.');
+    }
+  }
+
+  Future<void> SolicitarVisita(CarrinhoModel carrinho)async {
+    try{
+      final repository = UserRepository();
+      var historico = repository.solicitarVisita(carrinho);
+
+    }catch (error) {
+      debugPrint('ERROR (consultarPontuacao) => $error');
+      throw const ErrorModel(message: 'Erro na verificacao de solicitacao.');
     }
   }
 

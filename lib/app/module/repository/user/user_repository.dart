@@ -1,6 +1,5 @@
 import 'package:app_coleta_seletiva/app/module/models/carrinho_model.dart';
 import 'package:app_coleta_seletiva/app/module/models/error_model.dart';
-import 'package:app_coleta_seletiva/app/module/models/predio_model.dart';
 import 'package:app_coleta_seletiva/app/module/repository/user/i_user_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
